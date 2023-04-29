@@ -9,10 +9,11 @@ int buttonNextPin = 2;
 int buttonPrevPin = 3;
 
 int buttonStateNext = 0;
-
 int buttonStatePrev = 0;
 
-int waitTime = 1000;
+int prestate = 0;
+
+int waitTime = 0;
 
 int cnt = 0;
 
@@ -31,6 +32,24 @@ void setup()
 void loop()
 {
   // put your main code here, to run repeatedly:
+  buttonStateNext = digitalRead(buttonNextPin);
+  buttonStatePrev = digitalRead(buttonPrevPin);
+
+  if (buttonStateNext == HIGH && prestate == 0)
+  {
+    cnt++;
+    prestate = 1;
+  }
+  else if (buttonStatePrev == HIGH && prestate == 0)
+  {
+    cnt--;
+    prestate = 1;
+  }
+  else if (buttonStateNext == LOW && buttonStatePrev == LOW)
+  {
+    prestate = 0;
+  }
+
   if (cnt > 15 || cnt < 0)
   {
     cnt = 0;
@@ -45,14 +64,15 @@ void loop()
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, LOW);
       digitalWrite(LED4, LOW);
-      cnt++;
 
       break;
 
     case 1:
       delay(waitTime);
       digitalWrite(LED1, HIGH);
-      cnt++;
+      digitalWrite(LED2, LOW);
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -60,7 +80,8 @@ void loop()
       delay(waitTime);
       digitalWrite(LED1, LOW);
       digitalWrite(LED2, HIGH);
-      cnt++;
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -68,7 +89,8 @@ void loop()
       delay(waitTime);
       digitalWrite(LED1, HIGH);
       digitalWrite(LED2, HIGH);
-      cnt++;
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -77,7 +99,7 @@ void loop()
       digitalWrite(LED1, LOW);
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, HIGH);
-      cnt++;
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -86,7 +108,7 @@ void loop()
       digitalWrite(LED1, HIGH);
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, HIGH);
-      cnt++;
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -95,7 +117,7 @@ void loop()
       digitalWrite(LED1, LOW);
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, HIGH);
-      cnt++;
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -104,7 +126,7 @@ void loop()
       digitalWrite(LED1, HIGH);
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, HIGH);
-      cnt++;
+      digitalWrite(LED4, LOW);
 
       break;
 
@@ -114,7 +136,6 @@ void loop()
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, LOW);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -124,7 +145,6 @@ void loop()
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, LOW);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -134,7 +154,6 @@ void loop()
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, LOW);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -144,7 +163,6 @@ void loop()
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, LOW);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -154,7 +172,6 @@ void loop()
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, HIGH);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -164,7 +181,6 @@ void loop()
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, HIGH);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -174,7 +190,6 @@ void loop()
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, HIGH);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
 
@@ -184,7 +199,6 @@ void loop()
       digitalWrite(LED2, HIGH);
       digitalWrite(LED3, HIGH);
       digitalWrite(LED4, HIGH);
-      cnt++;
 
       break;
     default:
